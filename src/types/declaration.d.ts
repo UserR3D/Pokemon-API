@@ -1,18 +1,44 @@
-export type PokemonInfo = {
-  results: {
-    name: string;
-    url: string;
-  }[];
-};
+import { Interface } from "readline";
+
+export type Nullable<T> = T | null;
+
+export type Results<T> = {
+  name: string | T;
+  url: string;
+}[];
 
 export type Pokedex = {
-  results: {
-    name: string;
-    url: string;
-  }[];
+  results: Results<string>;
 };
 
-export type Pokemon = {
+export type BackDefaultSprite = {
+  back_default: string;
+  back_female: Nullable<string>;
+};
+
+export type BackShinySprite = {
+  back_shiny: string;
+  back_shiny_female: Nullable<string>;
+};
+
+export type FrontDefaultSprite = {
+  front_default: string;
+  front_female: Nullable<string>;
+};
+
+export type FrontShinySprite = {
+  front_shiny: string;
+  front_shiny_female: Nullable<string>;
+};
+
+export type PokemonSprites = BackDefaultSprite &
+  BackShinySprite &
+  FrontDefaultSprite &
+  FrontShinySprite & {
+    other: {};
+  };
+
+export interface Pokemon extends PokemonSprites {
   abilities: {
     name: string;
     url: string;
@@ -71,18 +97,6 @@ export type Pokemon = {
     name: string;
     url: string;
   };
-  sprites: {
-    back_default: string;
-    back_female: null | string;
-    back_shiny: string;
-    back_shiny_female: null | string;
-    front_default: string;
-    front_female: null | string;
-    front_shiny: string;
-    front_shiny_female: null | string;
-    // Adicionar //
-    other: {};
-  };
   stats: {
     base_stat: number;
     effort: number;
@@ -103,5 +117,6 @@ export type Pokemon = {
       url: string;
     };
   }[];
+  sprites: PokemonSprites;
   weight: number;
-};
+}

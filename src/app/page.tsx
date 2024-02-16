@@ -1,10 +1,14 @@
+import { Pokemon } from "@/types/declaration";
+import PokemonsBox from "@/components/pokemonsBox";
 import React from "react";
-import PokemonInfo from "./ui/dashboard/PokemonInfo";
 
-export default function Home() {
-  return (
-    <main>
-      <PokemonInfo />
-    </main>
-  );
+let endPoints: string[] = [];
+for (let i = 1; i < 4; i++) {
+  endPoints.push(`https://pokeapi.co/api/v2/pokemon/${i}`);
 }
+
+const page = () => {
+  return <PokemonsBox />;
+};
+
+export default page;
