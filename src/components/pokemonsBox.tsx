@@ -1,4 +1,6 @@
 import { Pokemon } from "@/types/declaration";
+import { Box } from "./Box";
+
 let endPoints: string[] = [];
 for (let i = 1; i < 4; i++) {
   endPoints.push(`https://pokeapi.co/api/v2/pokemon/${i}`);
@@ -8,7 +10,13 @@ const PokemonsBox = async () => {
   return endPoints.map(async (item) => {
     const res = await fetch(item);
     const response = (await res.json()) as Pokemon;
-    return <div key={response.id}>{response.name}</div>;
+    return (
+      <Box
+        key={response.id}
+        name={response.name}
+        image={response.sprites.front_default}
+      />
+    );
   });
 };
 

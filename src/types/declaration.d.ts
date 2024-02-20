@@ -38,7 +38,7 @@ export type PokemonSprites = BackDefaultSprite &
     other: {};
   };
 
-export interface Pokemon extends PokemonSprites {
+export interface Pokemon {
   abilities: {
     name: string;
     url: string;
