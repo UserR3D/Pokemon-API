@@ -2,7 +2,7 @@ import { Pokemon } from "@/types/declaration";
 import { Box } from "./Box";
 
 let endPoints: string[] = [];
-for (let i = 1; i < 4; i++) {
+for (let i = 1; i < 40; i++) {
   endPoints.push(`https://pokeapi.co/api/v2/pokemon/${i}`);
 }
 
@@ -15,6 +15,7 @@ const PokemonsBox = async () => {
         key={response.id}
         name={response.name}
         image={response.sprites.front_default}
+        types={response.types}
       />
     );
   });
