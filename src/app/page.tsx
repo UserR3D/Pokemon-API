@@ -1,11 +1,13 @@
 import PokemonsBox from "@/components/pokemonsBox";
-import { Pokemon } from "@/types/declaration";
-import React from "react";
+import React, { Suspense } from "react";
+import "../styles/globals.css";
 
 const page = () => {
   return (
     <>
-      <PokemonsBox />
+      <main className="grid grid-cols-5 gap-3 items-center justify-center max-w-screen-xl m-auto">
+        <PokemonsBox />
+      </main>
     </>
   );
 };

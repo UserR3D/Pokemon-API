@@ -5,11 +5,19 @@ export type Nullable<T> = T | null;
 export type Results<T> = {
   name: string | T;
   url: string;
-}[];
+};
 
 export type Pokedex = {
-  results: Results<string>;
+  results: Results<string>[];
 };
+
+export type Types = {
+  slot: number;
+  type: {
+    name: string;
+    url: string;
+  };
+}[];
 
 export type BackDefaultSprite = {
   back_default: string;
@@ -35,13 +43,21 @@ export type PokemonSprites = BackDefaultSprite &
   BackShinySprite &
   FrontDefaultSprite &
   FrontShinySprite & {
-    other: {};
+    other: {
+      dream_world: FrontDefaultSprite;
+      home: FrontDefaultSprite & FrontShinySprite;
+      "official-artwork": FrontDefaultSprite;
+      showdown: BackDefaultSprite &
+        BackShinySprite &
+        FrontDefaultSprite &
+        FrontShinySprite;
+    };
+    versions: unknown;
   };
 
 export interface Pokemon {
   abilities: {
-    name: string;
-    url: string;
+    ability: Results<string>;
     is_hidden: boolean;
     slot: number;
   }[];
@@ -50,72 +66,39 @@ export interface Pokemon {
     latest: string;
     legacy: string;
   };
-  forms: {
-    name: string;
-    url: string;
-  }[];
+  forms: Results<string>[];
   game_indices: {
     game_index: number;
-    version: {
-      name: string;
-      url: string;
-    };
+    version: Results<string>;
   }[];
   height: number;
   held_items: {
-    item: {
-      name: string;
-      url: string;
-    };
+    item: Results<string>;
     version_details: {
       rarity: number;
-      version: {
-        name: string;
-        url: string;
-      };
+      version: Results<string>;
     }[];
   }[];
   id: number;
   is_default: boolean;
   location_area_encounters: string;
   moves: {
-    move: {
-      name: string;
-      url: string;
-    };
+    move: Results<string>;
     version_group_details: {
       level_learned_at: number;
-      move_learn_method: {
-        name: string;
-        url: string;
-      };
+      move_learn_method: Results<string>;
     }[];
   }[];
   name: string;
   order: number;
-  species: {
-    name: string;
-    url: string;
-  };
+  species: Results<string>;
+  types: Types;
   stats: {
     base_stat: number;
     effort: number;
-    stat: {
-      name:
-        | "attack"
-        | "defense"
-        | "special-attack"
-        | "special-defense"
-        | "speed";
-      url: string;
-    };
-  }[];
-  types: {
-    slot: number;
-    type: {
-      name: string;
-      url: string;
-    };
+    stat: Results<
+      "attack" | "defense" | "special-attack" | "special-defense" | "speed"
+    >;
   }[];
   sprites: PokemonSprites;
   weight: number;

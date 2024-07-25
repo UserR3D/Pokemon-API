@@ -1,24 +1,25 @@
 import { Pokemon } from "@/types/declaration";
-import { Box } from "./Box";
-
-let endPoints: string[] = [];
-for (let i = 1; i < 40; i++) {
-  endPoints.push(`https://pokeapi.co/api/v2/pokemon/${i}`);
-}
+import Box from "./Box";
 
 const PokemonsBox = async () => {
-  return endPoints.map(async (item) => {
-    const res = await fetch(item);
+  const responses = [] as Pokemon[];
+  for (let i = 1; i < 20; i++) {
+    const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${i}`);
     const response = (await res.json()) as Pokemon;
-    return (
-      <Box
-        key={response.id}
-        name={response.name}
-        image={response.sprites.front_default}
-        types={response.types}
-      />
-    );
-  });
+    responses.push(response);
+  }
+  return (
+    <>
+      {responses.map((item) => (
+        <Box
+          key={item.id}
+          name={item.name}
+          front_default={item.sprites.front_default}
+          types={item.types}
+        />
+      ))}
+    </>
+  );
 };
 
 export default PokemonsBox;
